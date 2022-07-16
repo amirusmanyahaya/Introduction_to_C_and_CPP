@@ -1,0 +1,4 @@
+# create a Time struct with hh,ss, and mm data members
+# Check if a time is valid or not for a 24hr clock.
+# A fucntion that returns a 12hrs or 24hrs time string
+# A fucntion is_am

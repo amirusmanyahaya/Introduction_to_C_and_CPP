@@ -1,0 +1,25 @@
+# Main Functionality
+    The program takes as inputs a first price,  a last price, a stride, and a tax percent
+    and prints out a formated tax table.
+
+# Handling inputs
+    firstPrice float [-100.0, 100000]
+    lastPrice float [-100.0, 100000]
+    stride float [0, 1]
+    taxPercent[0,0.5]
+
+
+
+# algorithm
+    request first  price.
+    get first price and store in a vairable.
+    request last price.
+    get last price and store in a vairable.
+    request stride.
+    get stride and store in a vairable.
+    request taxPercent.
+    get taxPercent and store in a varaible.
+
+
+    for x iterations
+        print the current_price, tax amount and percent with tax

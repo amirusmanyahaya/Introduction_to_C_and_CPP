@@ -68,40 +68,31 @@ std::string get_digit_string(int const& x){
 }
 
 std::string get_twelve_hour_time(Time const& time){
-    std::string time_string{};
+    // std::string time_string{};
+    std::stringstream ss{};
+    ss << std::setfill('0');
     if (is_am(time)){
-        time_string = get_digit_string(time.hh);
+        ss << std::setw(2) << time.hh;
         if(time.hh == 0){
-            time_string = std::to_string(12);
+            ss.str("");
+            ss << 12;
         }
-        time_string += ":";
-        time_string += get_digit_string(time.mm);
-        time_string += ":";
-        time_string += get_digit_string(time.ss);
-        time_string += " am";
-
+        ss << ":" << std::setw(2) << time.mm << ":" << std::setw(2) << time.ss << " am";
     }else{
-        time_string = std::to_string(12);
-        if(time.hh > 12){
-            time_string = get_digit_string(time.hh % 12);
+        int hour = number_mod(time.hh,12);
+        if (hour == 0){
+            hour = 12;
         }
-        time_string += ":";
-        time_string += get_digit_string(time.mm);
-        time_string += ":";
-        time_string += get_digit_string(time.ss);
-        time_string += " pm";
+        ss << std::setw(2) << hour << ":" << std::setw(2) << time.mm << ":" << std::setw(2) << time.ss << " pm";
     }
-    return time_string;
+    return ss.str();
 }
 
 std::string get_twenty_four_hour_time(Time const& time){
-    std::string time_string{};
-    time_string += get_digit_string(time.hh);
-    time_string += ":";
-    time_string += get_digit_string(time.mm);
-    time_string += ":";
-    time_string += get_digit_string(time.ss);
-    return time_string;
+    std::stringstream ss{};
+    ss << std::setfill('0');
+    ss << std::setw(2) << time.hh << ":" << std::setw(2) << time.mm << ":" << std::setw(2) << time.ss;
+    return ss.str();
 }
 std::string to_string(Time const& time, bool is_twelve_hours){
     // prints an empty string if the time is not valid
@@ -216,7 +207,12 @@ std::ostream& operator<<(std::ostream& os, Time const& time){
 
 std::istream& operator>>(std::istream& is, Time& time) {
     std::cout << "Enter valid time: " << std::flush;
-    is >> time.hh >> time.mm >> time.ss;
+    is >> time.hh;
+    is.ignore(1000,':');
+    is >> time.mm;
+    is.ignore(1000,':');
+    is >> time.ss;
+    is.ignore(1000,'\n');
     if (!is_valid(time)){
         is.setstate(std::ios_base::failbit);
     }

@@ -3,6 +3,7 @@
 #include <string>
 #include <cmath>
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 struct Time {
     int hh{};
